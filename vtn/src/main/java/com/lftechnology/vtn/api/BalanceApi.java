@@ -33,9 +33,7 @@ public class BalanceApi {
         BalanceApiService service = retrofit.create(BalanceApiService.class);
         Call<BalanceResponse> call = service.getBalance();
         BalanceResponse balanceResponse = requestApi.executeApiCall(call);
-
-        System.out.println(ResponseCode.R00.name().equals(balanceResponse.getCode()));
-        if (!ResponseCode.R00.name().equals(balanceResponse.getCode()))
+        if (ResponseCode.getResponseByCode(balanceResponse.getCode()) == null)
             throw new VtnException(balanceResponse.getMessage(), balanceResponse.getCode());
         return balanceResponse;
     }

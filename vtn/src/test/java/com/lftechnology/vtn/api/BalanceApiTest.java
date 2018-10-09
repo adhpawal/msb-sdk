@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class BalanceApiTest {
 
-    Credential credential = new Credential("Invalid", "invalid");
+    Credential credential = new Credential("invalid", "invalid");
 
     @Test
     public void getBalance() {

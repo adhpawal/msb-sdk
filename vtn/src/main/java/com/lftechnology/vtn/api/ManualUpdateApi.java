@@ -33,10 +33,8 @@ public class ManualUpdateApi {
         ManualUpdateService service = retrofit.create(ManualUpdateService.class);
         Call<ManualTransactionResponse> call = service.getUpdateStatus(transactionId);
         ManualTransactionResponse manualTransactionResponse = requestApi.executeApiCall(call);
-        if (ResponseCode.R00.name().equals(manualTransactionResponse.getCode())) {
+        if (ResponseCode.getResponseByCode(manualTransactionResponse.getCode()) == null)
             throw new VtnException(manualTransactionResponse.getMessage(), manualTransactionResponse.getCode());
-        }
-
         return manualTransactionResponse;
     }
 

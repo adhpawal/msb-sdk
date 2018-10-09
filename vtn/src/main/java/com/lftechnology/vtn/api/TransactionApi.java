@@ -38,9 +38,8 @@ public class TransactionApi {
         Map<String, String> map = oMapper.convertValue(transactionRequest, Map.class);
         Call<TransactionResponse> call = service.createTransaction(map);
         TransactionResponse transactionResponseDTO = requestApi.executeApiCall(call);
-        if (ResponseCode.R00.name().equals(transactionResponseDTO.getCode()))
-            throw new VtnException(ResponseCode.valueOf(transactionResponseDTO.getCode()).getMessage(), transactionResponseDTO.getCode());
-
+        if (ResponseCode.getResponseByCode(transactionResponseDTO.getCode()) == null)
+            throw new VtnException(ResponseCode.getResponseByCode(transactionResponseDTO.getCode()), transactionResponseDTO.getCode());
         return transactionResponseDTO;
     }
 }

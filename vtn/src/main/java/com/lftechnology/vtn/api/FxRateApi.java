@@ -35,11 +35,8 @@ public class FxRateApi {
         FxRateApiService service = retrofit.create(FxRateApiService.class);
         Call<FxRateResponse> call = service.getRate(currencyCode);
         FxRateResponse fxRateResponse = requestApi.executeApiCall(call);
-        if (ResponseCode.R00.name().equals(fxRateResponse.getCode())) {
+        if (ResponseCode.getResponseByCode(fxRateResponse.getCode()) == null)
             throw new VtnException(fxRateResponse.getMessage(), fxRateResponse.getCode());
-
-        }
-
         return fxRateResponse;
 
 

@@ -41,9 +41,8 @@ public class BankApi {
         Map<String, String> map = oMapper.convertValue(bankRequest, Map.class);
         Call<BankResponse> call = service.verifyBank(map);
         BankResponse bankResponse = requestApi.executeApiCall(call);
-        if (!ResponseCode.R00.name().equals(bankResponse.getCode()))
+        if (ResponseCode.getResponseByCode(bankResponse.getCode()) == null)
             throw new VtnException(bankResponse.getMessage(), bankResponse.getCode());
-
         return bankResponse;
     }
 

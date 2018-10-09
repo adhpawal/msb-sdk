@@ -32,9 +32,8 @@ public class TransactionListApi {
 
         Call<TransactionListResponse> call = service.getTransaction(transactionId);
         TransactionListResponse transactionListResponseDTO = requestApi.executeApiCall(call);
-        if (ResponseCode.R00.name().equals(transactionListResponseDTO.getCode()))
+        if (ResponseCode.getResponseByCode(transactionListResponseDTO.getCode()) == null)
             throw new VtnException(transactionListResponseDTO.getMessage(), transactionListResponseDTO.getCode());
-
         return transactionListResponseDTO;
     }
 

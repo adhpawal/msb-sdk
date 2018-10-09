@@ -40,9 +40,8 @@ public class AccountApi {
         Map<String, String> map = oMapper.convertValue(account, Map.class);
         Call<AccountStatusResponse> call = service.getAccount(map);
         AccountStatusResponse accountStatusResponse = requestApi.executeApiCall(call);
-        if (!ResponseCode.R00.name().equals(accountStatusResponse.getCode()))
+        if (ResponseCode.getResponseByCode(accountStatusResponse.getCode()) == null)
             throw new VtnException(accountStatusResponse.getMessage(), accountStatusResponse.getCode());
-
         return accountStatusResponse;
     }
 
